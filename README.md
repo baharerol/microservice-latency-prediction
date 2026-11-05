@@ -10,7 +10,7 @@ Most API monitoring is reactive, problems are detected only after they occur. Th
 
 ## Approach
 
-1. **Synthetic data** - a FastAPI simulation generates ~29,000 request records across 5 load scenarios (low, medium, high, spike, mixed) and 4 endpoints, with response time driven by concurrent requests, RPS, payload size and random spikes. Real production traffic was out of reach (privacy / access constraints), so controlled synthetic generation was used.
+1. **Synthetic data** - a [FastAPI simulation](https://github.com/baharerol/API-Performance-Simulator) generates  ~29,000 request records across 5 load scenarios (low, medium, high, spike, mixed) and 4 endpoints, with response time driven by concurrent requests, RPS, payload size and random spikes. Real production traffic was out of reach (privacy / access constraints), so controlled synthetic generation was used.
 2. **Feature engineering** - lag features (previous 1–3 response times) and rolling statistics (mean over 5/10, std over 5), all computed with `shift()` to avoid data leakage.
 3. **Models** - Linear Regression, Random Forest and LSTM, each in a baseline and a feature-engineered (enhanced) configuration. Temporal (chronological 80/20) split, no shuffling.
 4. **Explainability** - SHAP values to rank which features drive each prediction.
